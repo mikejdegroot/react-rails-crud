@@ -1,7 +1,7 @@
 class Api::V1::BeersController < ApplicationController
   # call the set_beer methos before each method in the array in order to get the beer by id from the db
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /beers
   # GET /beers.json
   def index
@@ -28,7 +28,6 @@ class Api::V1::BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
-
 
     if @beer.save
       render json: @beer
