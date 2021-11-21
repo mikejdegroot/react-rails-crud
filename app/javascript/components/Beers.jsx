@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table, message, Popconfirm } from "antd";
+import AddBeerModal from "./AddBeerModal";
 
 const Beers = () => {
   const [beers, setBeers] = useState([])
@@ -81,6 +82,11 @@ const Beers = () => {
       .catch((err) => message.error("Error: " + err));
   };
 
+  const reloadBeers = () => {
+    setBeers([]);
+    loadBeers();
+  };
+
   useEffect(() => {
     fetchBeers()
   }, [])
@@ -91,7 +97,7 @@ const Beers = () => {
     <>
       <Table className="table-striped-rows" dataSource={beers} columns={columns} pagination={{ pageSize: 5 }} />
 
-      {/* <AddBeerModal reloadBeers={this.reloadBeers} /> */}
+      <AddBeerModal reloadBeers={reloadBeers} />
     </>
   );
 }
