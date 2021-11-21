@@ -9,7 +9,7 @@ const AddBeerModal = ({ reloadBeers }) => {
   const [visible, setVisible] = useState(false)
 
   const onFinish = (values) => {
-    const url = "api/v1/beers/";
+    const url = "api/v1/beers/create";
     fetch(url, {
       method: "post",
       headers: {
@@ -19,7 +19,7 @@ const AddBeerModal = ({ reloadBeers }) => {
     })
       .then((data) => {
         if (data.ok) {
-          this.handleCancel();
+          handleCancel();
 
           return data.json();
         }

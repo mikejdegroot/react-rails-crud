@@ -43,15 +43,14 @@ const Beers = () => {
     const url = "api/v1/beers/index";
     fetch(url)
       .then((data) => {
-        console.log(data);
         if (data.ok) {
           return data.json();
         }
         throw new Error("Network error.");
       })
       .then((data) => {
-        data.forEach((beer) => {
-          const newEl = {
+        const newBeers = data.map((beer) => {
+          return {
             key: beer.id,
             id: beer.id,
             brand: beer.brand,
@@ -60,8 +59,8 @@ const Beers = () => {
             quantity: beer.quantity,
           };
 
-          setBeers((state) => [...state, newEl])
         });
+        setBeers(newBeers)
       })
       .catch((err) => message.error("Error: " + err));
   };
@@ -74,7 +73,7 @@ const Beers = () => {
     })
       .then((data) => {
         if (data.ok) {
-          this.reloadBeers();
+          fetchBeers();
           return data.json();
         }
         throw new Error("Network error.");
@@ -84,7 +83,7 @@ const Beers = () => {
 
   const reloadBeers = () => {
     setBeers([]);
-    loadBeers();
+    fetchBeers();
   };
 
   useEffect(() => {
