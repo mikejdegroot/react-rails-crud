@@ -71,6 +71,7 @@ const Beers = () => {
           };
 
         });
+        console.log(data);
         setBeers(newBeers)
       })
       .catch((err) => message.error("Error: " + err));

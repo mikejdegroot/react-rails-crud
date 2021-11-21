@@ -1,3 +1,4 @@
+
 class Api::V1::BeersController < ApplicationController
   # call the set_beer methos before each method in the array in order to get the beer by id from the db
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
@@ -6,6 +7,15 @@ class Api::V1::BeersController < ApplicationController
   # GET /beers.json
   def index
     @beers = Beer.all.order(brand: :asc)
+    # DEBUGGING!
+    # uncomment these lines to test out the debugger
+    # @test_val = 'i can read this in debugger'
+    # binding.pry
+
+    # uncomment these lines to print variables to the development log
+    # logger.debug('----------------------- 🔥')
+    # logger.debug(@beers)
+    # logger.debug('----------------------- 🔥')
     render json: @beers
   end
 
@@ -28,6 +38,9 @@ class Api::V1::BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
+    # this is how to make http reqs
+    # response = HTTParty.get('https://placeimg.com/640/360/nature')
+    @beer.image = 'https://placeimg.com/640/360/nature'
 
     if @beer.save
       render json: @beer
@@ -66,6 +79,6 @@ class Api::V1::BeersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def beer_params
-      params.permit(:brand, :style, :country, :quantity)
+      params.permit(:brand, :style, :country, :quantity, :image)
     end
 end
