@@ -1,7 +1,42 @@
 import React, { useEffect, useState } from 'react'
+import { Table, message, Popconfirm } from "antd";
 
 const Beers = () => {
   const [beers, setBeers] = useState([])
+  // ant d table setup
+  const columns = [
+    {
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+    },
+    {
+      title: "Style",
+      dataIndex: "style",
+      key: "style",
+    },
+    {
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+    },
+    {
+      title: "",
+      key: "action",
+      render: (_text, record) => (
+        <Popconfirm title="Are you sure to delete this beer?" onConfirm={() => deleteBeer(record.id)} okText="Yes" cancelText="No">
+          <a href="#" type="danger">
+            Delete{" "}
+          </a>
+        </Popconfirm>
+      ),
+    },
+  ];
 
   const fetchBeers = () => {
     const url = "api/v1/beers/index";
@@ -24,12 +59,24 @@ const Beers = () => {
             quantity: beer.quantity,
           };
 
-          // this.setState((prevState) => ({
-          //   beers: [...prevState.beers, newEl],
-          // }));
-
           setBeers((state) => [...state, newEl])
         });
+      })
+      .catch((err) => message.error("Error: " + err));
+  };
+
+  const deleteBeer = (id) => {
+    const url = `api/v1/beers/${id}`;
+
+    fetch(url, {
+      method: "delete",
+    })
+      .then((data) => {
+        if (data.ok) {
+          this.reloadBeers();
+          return data.json();
+        }
+        throw new Error("Network error.");
       })
       .catch((err) => message.error("Error: " + err));
   };
@@ -40,7 +87,13 @@ const Beers = () => {
 
   console.log(beers);
 
-  return <div>Beeers</div>
+  return (
+    <>
+      <Table className="table-striped-rows" dataSource={beers} columns={columns} pagination={{ pageSize: 5 }} />
+
+      {/* <AddBeerModal reloadBeers={this.reloadBeers} /> */}
+    </>
+  );
 }
 
 export default Beers
