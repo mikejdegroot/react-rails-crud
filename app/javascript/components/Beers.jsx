@@ -30,6 +30,17 @@ const Beers = () => {
       title: "",
       key: "action",
       render: (_text, record) => (
+        <Popconfirm title="Are you sure to edit this beer?" onConfirm={() => editBeer(record.id)} okText="Yes" cancelText="No">
+          <a href="#" type="danger">
+            Edit{" "}
+          </a>
+        </Popconfirm>
+      ),
+    },
+    {
+      title: "",
+      key: "action",
+      render: (_text, record) => (
         <Popconfirm title="Are you sure to delete this beer?" onConfirm={() => deleteBeer(record.id)} okText="Yes" cancelText="No">
           <a href="#" type="danger">
             Delete{" "}
@@ -81,6 +92,23 @@ const Beers = () => {
       .catch((err) => message.error("Error: " + err));
   };
 
+  const editBeer = (id) => {
+    const url = `api/v1/beers/${id}`;
+
+    fetch(url, {
+      method: "put",
+    })
+      .then((data) => {
+        if (data.ok) {
+          fetchBeers();
+          const beer = data.json();
+          return beer;
+        }
+        throw new Error("Network error.");
+      })
+      .catch((err) => message.error("Error: " + err));
+  };
+
   const reloadBeers = () => {
     setBeers([]);
     fetchBeers();
@@ -89,8 +117,6 @@ const Beers = () => {
   useEffect(() => {
     fetchBeers()
   }, [])
-
-  console.log(beers);
 
   return (
     <>
