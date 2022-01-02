@@ -14,4 +14,17 @@ class BeerTest < ActiveSupport::TestCase
     assert beer.destroy
   end
 
+  test "should have label method" do
+    beer = Beer.new
+    assert beer.addCustomLabel("blue")
+  end
+
+  test "should add label to beer" do
+    beer = Beer.new
+    beer.image = "image"
+    beer.addCustomLabel("blue")
+    pp beer
+    assert_equal beer.image, "blue"
+  end
+
 end

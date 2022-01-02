@@ -3,4 +3,9 @@
 class Beer < ApplicationRecord
   # validate our model ~ this is refered to in testing
     validates :brand, presence: true
+
+  def addCustomLabel(label)
+    @image = label
+  end
+
 end

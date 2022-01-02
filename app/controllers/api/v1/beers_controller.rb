@@ -14,7 +14,7 @@ class Api::V1::BeersController < ApplicationController
 
     # uncomment these lines to print variables to the development log
     # logger.debug('----------------------- 🔥')
-    # logger.debug(@beers)
+    # logger.debug(json: @beers)
     # logger.debug('----------------------- 🔥')
     render json: @beers
   end
