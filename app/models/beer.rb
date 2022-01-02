@@ -5,7 +5,7 @@ class Beer < ApplicationRecord
     validates :brand, presence: true
 
   def addCustomLabel(label)
-    @image = label
+    self.image = label
   end
 
 end
