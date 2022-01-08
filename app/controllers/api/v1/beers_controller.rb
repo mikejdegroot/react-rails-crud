@@ -7,6 +7,7 @@ class Api::V1::BeersController < ApplicationController
   # GET /beers.json
   def index
     @beers = Beer.all.order(brand: :asc)
+    pp @beers
     # DEBUGGING!
     # uncomment these lines to test out the debugger
     # @test_val = 'i can read this in debugger'
@@ -63,6 +64,20 @@ class Api::V1::BeersController < ApplicationController
     end
   end
 
+    # PATCH/PUT /beers/1
+  # PATCH/PUT /beers/1.json
+  def update_label
+    if @beer
+      # update using active record syntax
+      @beer.addCustomLabel("red")
+      @beer.save
+
+      render json: @beer
+    else
+      render json: {:error => "no beer to edit" }
+    end
+  end
+
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
@@ -74,6 +89,7 @@ class Api::V1::BeersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
+      # to change the find method to a slug here instead of using ids in urls - slugs must have to be unique tho
       @beer = Beer.find(params[:id])
     end
 

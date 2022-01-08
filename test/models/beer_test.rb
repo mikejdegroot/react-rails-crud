@@ -23,7 +23,6 @@ class BeerTest < ActiveSupport::TestCase
     beer = Beer.new
     beer.image = "image"
     beer.addCustomLabel("blue")
-    pp beer
     assert_equal beer.image, "blue"
   end
 

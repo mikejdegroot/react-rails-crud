@@ -7,6 +7,11 @@ const Beers = () => {
   // ant d table setup
   const columns = [
     {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
       title: "Brand",
       dataIndex: "brand",
       key: "brand",
