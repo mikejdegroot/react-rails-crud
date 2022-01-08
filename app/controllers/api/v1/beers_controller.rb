@@ -67,8 +67,9 @@ class Api::V1::BeersController < ApplicationController
   # PATCH/PUT /beers/1/label.json
   def update_label
     if @beer
+      # this is a custom method 
+      @beer.addCustomLabel(params[:label])
       # update using active record syntax
-      @beer.addCustomLabel("red")
       @beer.save
 
       render json: @beer

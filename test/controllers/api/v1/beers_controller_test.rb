@@ -38,7 +38,9 @@ class Api::V1::BeersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "PUT to label endpoint edits resource" do
-    put( "/api/v1/beers/980190962/label", params: {}, xhr: true)
+    # params: { 'label' => 'turq' } would also work here, if the variable was not set in the url in routes.rb
+    # so params is not only the params object but also the route variables/ wildcards / placeholders
+    put( "/api/v1/beers/980190962/gold", params: { }, xhr: true)
 
     # returns a 200 res
     assert_response :success
