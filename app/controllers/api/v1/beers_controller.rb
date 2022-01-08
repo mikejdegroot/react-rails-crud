@@ -1,13 +1,12 @@
 
 class Api::V1::BeersController < ApplicationController
   # call the set_beer methos before each method in the array in order to get the beer by id from the db
-  before_action :set_beer, only: [:show, :edit, :update, :destroy]
+  before_action :set_beer, only: [:show, :edit, :update, :update_label, :destroy]
   
   # GET /beers
   # GET /beers.json
   def index
     @beers = Beer.all.order(brand: :asc)
-    pp @beers
     # DEBUGGING!
     # uncomment these lines to test out the debugger
     # @test_val = 'i can read this in debugger'
@@ -64,8 +63,8 @@ class Api::V1::BeersController < ApplicationController
     end
   end
 
-    # PATCH/PUT /beers/1
-  # PATCH/PUT /beers/1.json
+    # PATCH/PUT /beers/1/label
+  # PATCH/PUT /beers/1/label.json
   def update_label
     if @beer
       # update using active record syntax

@@ -34,17 +34,18 @@ class Api::V1::BeersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "application/json; charset=utf-8", @response.content_type
     body = JSON.parse(response.body)
     # returned object matches the passed in name
-    assert_equal 12, body["quantity"]
+    assert_equal "12", body["quantity"]
   end
 
-  # test "PUT to label endpoint edits resource" do
-  #   put( "/api/v1/beers/1/label", params: { 'brand' => "corona" }, xhr: true)
+  test "PUT to label endpoint edits resource" do
+    put( "/api/v1/beers/980190962/label", params: {}, xhr: true)
 
-  #   # returns a 200 res
-  #   assert_response :success
-  #   # it sends json back
-  #   body = JSON.parse(response.body)
-  #   # returned object matches the passed in name
-  #   assert_equal "image", body["red"]
-  # end
+    # returns a 200 res
+    assert_response :success
+    # it sends json back
+    body = JSON.parse(response.body)
+    pp body
+    # returned object matches the passed in name
+    assert_equal "red", body["image"]
+  end
 end
