@@ -46,8 +46,7 @@ class Api::V1::BeersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     # it sends json back
     body = JSON.parse(response.body)
-    pp body
     # returned object matches the passed in name
-    assert_equal "red", body["image"]
+    assert_equal "gold", body["image"]
   end
 end
